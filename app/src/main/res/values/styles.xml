@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="CardView.WeatherDay">
+    <style name="CardView.WeatherDay" parent="Theme.WeatherFromBIlly">
         <item name="android:background">@color/blue_800</item>
     </style>
 </resources>
