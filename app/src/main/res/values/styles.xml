@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="CardView.WeatherDay" parent="ThemeOverlay.AppCompat">
-        <item name="android:background">@color/blue_800</item>
+        <item name="android:background">@color/blue_2</item>
+    </style>
+    <style name="UI" />
+    <style name="UI.Element1" >
+        <item name="android:textSize">20sp</item>
     </style>
 </resources>
