@@ -1,4 +1,4 @@
-package com.weatherfrombilly.app2.ui.main.ui
+package com.weatherfrombilly.app2.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.weatherfrombilly.app2.R
+import com.weatherfrombilly.app2.ui.main.model.Day
+import com.weatherfrombilly.app2.ui.main.model.Icon
+import com.weatherfrombilly.app2.ui.main.model.WeatherDay
 
 class WeatherDayAdapter : RecyclerView.Adapter<WeatherDayAdapter.WeatherDayViewHolder>() {
     private val days = listOf<WeatherDay>(

@@ -1,4 +1,4 @@
-package com.weatherfrombilly.app2.ui.main.ui
+package com.weatherfrombilly.app2.ui.main.model
 
 import com.weatherfrombilly.app2.R
 

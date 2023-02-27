@@ -1,4 +1,4 @@
-package com.weatherfrombilly.app2.ui.main.model.data
+package com.weatherfrombilly.app2.data.model
 
 data class WeatherData(
     val windSpeed: Float = 0f,
