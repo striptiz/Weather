@@ -1,48 +1,37 @@
 package com.weatherfrombilly.app2.data.repository
 
+import com.weatherfrombilly.app2.data.api.GismeteoApi
 import com.weatherfrombilly.app2.data.api.TomorrowApi
-import com.weatherfrombilly.app2.data.model.CurrentWeatherResponse
+import com.weatherfrombilly.app2.data.mapper.WeatherMapper
 import com.weatherfrombilly.app2.data.model.WeatherModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class WeatherRepository {
-    interface ResultCallback {
-        fun onResult(data: WeatherModel)
-        fun onFailure(msg: String)
-    }
-
+class WeatherRepository(val mapper: WeatherMapper = WeatherMapper()) {
     private val tomorrowApi by lazy {
         val retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .baseUrl("https://api.tomorrow.io/")
             .build()
 
         retrofit.create(TomorrowApi::class.java)
     }
 
-    fun getWeatherData(city: String, callback: ResultCallback) {
-        tomorrowApi.getCurrentWeather().enqueue(object : Callback<CurrentWeatherResponse> {
-            override fun onResponse(
-                call: Call<CurrentWeatherResponse>,
-                response: Response<CurrentWeatherResponse>
-            ) {
-                response.body()?.data?.values?.let { data ->
-                    response.body()?.location?.let { loc ->
-                        callback.onResult(WeatherModel(data.temperature, loc.name, data.windSpeed))
-                        return
-                    }
-                }
+    private val gisApi by lazy {
+        val retrofit = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .baseUrl("https://api.nopbreak.ru/")
+            .build()
 
-                callback.onFailure("debug1")
-            }
+        retrofit.create(GismeteoApi::class.java)
+    }
 
-            override fun onFailure(call: Call<CurrentWeatherResponse>, t: Throwable) {
-                callback.onFailure(t.toString())
-            }
-        })
+    fun getWeather(): Single<WeatherModel> {
+        return gisApi.getCurrentWeather(11878).subscribeOn(Schedulers.io()).map(mapper::map)
     }
 }

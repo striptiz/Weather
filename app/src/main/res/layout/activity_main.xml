@@ -1,159 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.weatherfrombilly.app2.ui.main.viewmodel.UiState" />
 
         <variable
             name="model"
             type="com.weatherfrombilly.app2.ui.main.viewmodel.MainViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/main"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".ui.main.view.MainFragment">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/cityNameTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@{model.city}"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="India" />
-
-        <ImageView
-            android:id="@+id/weatherIconIV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/ic_weather_icon_thunder"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cityNameTV" />
-
-        <TextView
-            android:id="@+id/weatherDescTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:paddingBottom="24dp"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="@+id/weatherIconIV"
-            app:layout_constraintStart_toStartOf="@+id/weatherIconIV"
-            app:layout_constraintTop_toBottomOf="@+id/weatherIconIV" />
-
-        <TextView
-            android:id="@+id/currentTempTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="28°"
-            android:textSize="64sp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintStart_toEndOf="@+id/tempIV"
-            app:layout_constraintTop_toBottomOf="@+id/bar1" />
-
-        <ImageView
-            android:id="@+id/tempIV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/ic_weather_icon_temperature"
-            app:layout_constraintBottom_toBottomOf="@+id/currentTempTV"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/currentTempTV" />
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/bar1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="weatherDescTV, weatherIconIV" />
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/bar2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="currentTempTV" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="203dp" />
-
-        <ImageView
-            android:id="@+id/rainIV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_weather_rain_drop"
-            app:layout_constraintBottom_toTopOf="@id/windIconIV"
-            app:layout_constraintEnd_toStartOf="@id/currentRainIntencityTV"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/bar1"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <TextView
-            android:id="@+id/currentRainIntencityTV"
-            style="@style/UI.Element1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="85%"
-            app:layout_constraintBottom_toBottomOf="@+id/rainIV"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/rainIV"
-            app:layout_constraintTop_toTopOf="@+id/rainIV" />
-
-        <ImageView
-            android:id="@+id/windIconIV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:rotationY="8"
-            android:src="@drawable/ic_weather_wind"
-            app:layout_constraintBottom_toTopOf="@id/bar2"
-            app:layout_constraintEnd_toStartOf="@id/currentWindSpeedTV"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@id/guideline"
-            app:layout_constraintTop_toBottomOf="@id/rainIV" />
-
-        <TextView
-            android:id="@+id/currentWindSpeedTV"
-            style="@style/UI.Element1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="11.27 km/h"
-            app:layout_constraintBottom_toBottomOf="@+id/windIconIV"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/windIconIV"
-            app:layout_constraintTop_toTopOf="@+id/windIconIV" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fragment_main__rv"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:itemCount="7"
-            tools:listitem="@layout/view_holder_day" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:context=".ui.main.view.MainFragment">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleX="2.0"
+                    android:scaleY="2.0"
+                    app:layout_constraintBottom_toTopOf="@+id/fragment_main__rv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/cityNameTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@{model.city}"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="India" />
+
+                <ImageView
+                    android:id="@+id/weatherIconIV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:src="@drawable/ic_weather_icon_thunder"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cityNameTV" />
+
+                <TextView
+                    android:id="@+id/weatherDescTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingBottom="24dp"
+                    android:text="@{model.desc}"
+                    app:layout_constraintEnd_toEndOf="@+id/weatherIconIV"
+                    app:layout_constraintStart_toStartOf="@+id/weatherIconIV"
+                    app:layout_constraintTop_toBottomOf="@+id/weatherIconIV" />
+
+                <TextView
+                    android:id="@+id/currentTempTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{model.currentTemp}"
+                    android:textSize="64sp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline"
+                    app:layout_constraintStart_toEndOf="@+id/tempIV"
+                    app:layout_constraintTop_toBottomOf="@+id/bar1"
+                    tools:text="28°" />
+
+                <ImageView
+                    android:id="@+id/tempIV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/ic_weather_icon_temperature"
+                    app:layout_constraintBottom_toBottomOf="@+id/currentTempTV"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/currentTempTV" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/bar1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="weatherDescTV, weatherIconIV" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/bar2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="currentTempTV" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="203dp" />
+
+                <ImageView
+                    android:id="@+id/rainIV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/ic_weather_rain_drop"
+                    app:layout_constraintBottom_toTopOf="@id/windIconIV"
+                    app:layout_constraintEnd_toStartOf="@id/currentRainIntencityTV"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/bar1"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/currentRainIntencityTV"
+                    style="@style/UI.Element1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="@{model.currentHumidity}"
+                    app:layout_constraintBottom_toBottomOf="@+id/rainIV"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/rainIV"
+                    app:layout_constraintTop_toTopOf="@+id/rainIV"
+                    tools:text="85%" />
+
+                <ImageView
+                    android:id="@+id/windIconIV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:rotationY="8"
+                    android:src="@drawable/ic_weather_wind"
+                    app:layout_constraintBottom_toTopOf="@id/bar2"
+                    app:layout_constraintEnd_toStartOf="@id/currentWindSpeedTV"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/rainIV" />
+
+                <TextView
+                    android:id="@+id/currentWindSpeedTV"
+                    style="@style/UI.Element1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="@{model.currentWindSpeed}"
+                    app:layout_constraintBottom_toBottomOf="@+id/windIconIV"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/windIconIV"
+                    app:layout_constraintTop_toTopOf="@+id/windIconIV"
+                    tools:text="11.50 km/h" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/fragment_main__rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:itemCount="7"
+                    tools:listitem="@layout/view_holder_day" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
