@@ -1,5 +1,6 @@
 package com.weatherfrombilly.app2.ui.main.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,28 +8,30 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.weatherfrombilly.app2.R
-import com.weatherfrombilly.app2.ui.main.model.Day
-import com.weatherfrombilly.app2.ui.main.model.Icon
+import com.weatherfrombilly.app2.data.model.WeekWeatherModel
 import com.weatherfrombilly.app2.ui.main.model.WeatherDay
 
 class WeatherDayAdapter : RecyclerView.Adapter<WeatherDayAdapter.WeatherDayViewHolder>() {
-    private val days = listOf<WeatherDay>(
-        WeatherDay(0, Day.MONDAY, Icon.THUNDER),
-        WeatherDay(2, Day.TUESDAY, Icon.THUNDER),
-        WeatherDay(5, Day.WEDNESDAY, Icon.THUNDER),
-        WeatherDay(-7, Day.THURSDAY, Icon.THUNDER)
-    )
+    private val days = mutableListOf<WeekWeatherModel>()
 
     class WeatherDayViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val icon = view.findViewById<ImageView>(R.id.view_holder_day__icon)
         private val day = view.findViewById<TextView>(R.id.view_holder_day__day)
         private val temperature = view.findViewById<TextView>(R.id.view_holder_day__temperature)
+        private val desc = view.findViewById<TextView>(R.id.view_holder_day__desc)
 
-        fun bind(wDay: WeatherDay) {
-            temperature.text = "${wDay.temp}°"
-            day.text = wDay.day.toLocalizedFullNamedString(itemView.context)
-            icon.setImageResource(wDay.icon.id)
+        fun bind(wDay: WeekWeatherModel) {
+            temperature.text = "${wDay.temperature}°"
+            desc.text = wDay.desc
+            //day.text = wDay.day.toLocalizedFullNamedString(itemView.context)
+            //icon.setImageResource(wDay.icon.id)
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(l: List<WeekWeatherModel>) {
+        days.addAll(l)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherDayViewHolder {

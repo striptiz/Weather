@@ -3,19 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="16dp"
+    android:padding="8dp"
     android:theme="@style/CardView.WeatherDay">
 
     <ImageView
+        android:layout_marginTop="12dp"
         android:id="@+id/view_holder_day__icon"
+        app:layout_constraintTop_toBottomOf="@id/view_holder_day__day"
         android:layout_width="90dp"
         android:layout_height="90dp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_weather_icon_thunder" />
+
+    <TextView
+        android:text="DEBUG"
+        android:id="@+id/view_holder_day__desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_holder_day__icon" />
 
     <TextView
         android:id="@+id/view_holder_day__day"
@@ -24,7 +33,7 @@
         android:layout_marginBottom="32dp"
         android:text="Fri"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/view_holder_day__icon"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/view_holder_day__icon"
         app:layout_constraintStart_toStartOf="@+id/view_holder_day__icon" />
 
@@ -32,10 +41,10 @@
         android:id="@+id/imageView8"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toStartOf="@id/view_holder_day__temperature"
         app:layout_constraintStart_toStartOf="@+id/view_holder_day__icon"
-        app:layout_constraintTop_toBottomOf="@+id/view_holder_day__icon"
+        app:layout_constraintTop_toBottomOf="@+id/view_holder_day__desc"
         app:srcCompat="@drawable/ic_weather_icon_temperature" />
 
     <TextView

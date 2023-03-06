@@ -3,12 +3,15 @@ package com.weatherfrombilly.app2.data.repository
 import com.weatherfrombilly.app2.data.api.GismeteoApi
 import com.weatherfrombilly.app2.data.api.TomorrowApi
 import com.weatherfrombilly.app2.data.mapper.WeatherMapper
+import com.weatherfrombilly.app2.data.model.IconModel
 import com.weatherfrombilly.app2.data.model.WeatherModel
+import com.weatherfrombilly.app2.data.model.WeekWeatherModel
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 class WeatherRepository(val mapper: WeatherMapper = WeatherMapper()) {
     private val tomorrowApi by lazy {
@@ -33,5 +36,16 @@ class WeatherRepository(val mapper: WeatherMapper = WeatherMapper()) {
 
     fun getWeather(): Single<WeatherModel> {
         return gisApi.getCurrentWeather(11878).subscribeOn(Schedulers.io()).map(mapper::map)
+    }
+
+    fun getWeekWeather(): Single<List<WeekWeatherModel>> {
+        return Single.just(listOf(
+            WeekWeatherModel(Date(), -2, IconModel(""), "Облачно"),
+            WeekWeatherModel(Date(), -2, IconModel(""), "Дождь"),
+            WeekWeatherModel(Date(), -2, IconModel(""), "Снег"),
+            WeekWeatherModel(Date(), -2, IconModel(""), "Гроза"),
+            WeekWeatherModel(Date(), -2, IconModel(""), "Туман"),
+            WeekWeatherModel(Date(), -2, IconModel(""), "Ливень")
+        ))
     }
 }
