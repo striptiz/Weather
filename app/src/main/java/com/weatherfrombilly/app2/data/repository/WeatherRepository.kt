@@ -39,13 +39,16 @@ class WeatherRepository(val mapper: WeatherMapper = WeatherMapper()) {
     }
 
     fun getWeekWeather(): Single<List<WeekWeatherModel>> {
-        return Single.just(listOf(
-            WeekWeatherModel(Date(), -2, IconModel(""), "Облачно"),
-            WeekWeatherModel(Date(), -2, IconModel(""), "Дождь"),
-            WeekWeatherModel(Date(), -2, IconModel(""), "Снег"),
-            WeekWeatherModel(Date(), -2, IconModel(""), "Гроза"),
-            WeekWeatherModel(Date(), -2, IconModel(""), "Туман"),
-            WeekWeatherModel(Date(), -2, IconModel(""), "Ливень")
-        ))
+        return Single.just(
+            listOf(
+                WeekWeatherModel(Date("2023/03/09"), -2, IconModel(""), "Облачно", "cloud"),
+                WeekWeatherModel(Date("2023/03/10"), -2, IconModel(""), "Дождь", "rain"),
+                WeekWeatherModel(Date("2023/03/11"), -2, IconModel(""), "Снег", "snowfall"),
+                WeekWeatherModel(Date("2023/03/12"), -2, IconModel(""), "Гроза", "thunder"),
+                WeekWeatherModel(Date("2023/03/13"), -2, IconModel(""), "Туман", "fog"),
+                WeekWeatherModel(Date("2023/03/14"), -2, IconModel(""), "Ливень", "rainfall"),
+                WeekWeatherModel(Date("2023/03/15"), -2, IconModel(""), "Туман", "fog")
+            )
+        )
     }
 }

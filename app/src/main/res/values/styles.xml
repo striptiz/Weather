@@ -7,4 +7,8 @@
     <style name="UI.Element1" >
         <item name="android:textSize">20sp</item>
     </style>
+    <style name="UI.UpdateButton" parent="TextAppearance.AppCompat.Widget.Button">
+        <item name="backgroundTint">@color/blue_2</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

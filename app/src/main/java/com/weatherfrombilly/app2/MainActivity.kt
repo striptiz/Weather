@@ -6,13 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import androidx.recyclerview.widget.RecyclerView.*
 import com.weatherfrombilly.app2.databinding.ActivityMainBinding
 import com.weatherfrombilly.app2.ui.main.adapter.WeatherDayAdapter
 import com.weatherfrombilly.app2.ui.main.viewmodel.MainViewModel
 import com.weatherfrombilly.app2.ui.main.viewmodel.UiState
 import com.weatherfrombilly.app2.ui.main.viewmodel.WeekWeatherViewModel
+import com.weatherfrombilly.app2.util.UI.isLandscapeOrientation
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
@@ -40,7 +40,12 @@ class MainActivity : AppCompatActivity() {
         }
         adapter = WeatherDayAdapter()
         lm = LinearLayoutManager(this).apply {
-            orientation = HORIZONTAL
+            orientation = if (!applicationContext.isLandscapeOrientation()) {
+                HORIZONTAL
+            } else {
+                VERTICAL
+            }
+            //orientation = HORIZONTAL
         }
         binding.fragmentMainRv.adapter = adapter
         binding.fragmentMainRv.layoutManager = lm
@@ -95,7 +100,8 @@ class MainActivity : AppCompatActivity() {
                 currentRainIntencityTV,
                 windIconIV,
                 currentWindSpeedTV,
-                activityMainProgress
+                activityMainProgress,
+                currentDate
             )
         }
     }
@@ -114,7 +120,8 @@ class MainActivity : AppCompatActivity() {
                 currentWindSpeedTV,
                 activityMainProgress,
                 activityMainErrorLabel,
-                updateButton
+                updateButton,
+                currentDate
             )
         }
     }
