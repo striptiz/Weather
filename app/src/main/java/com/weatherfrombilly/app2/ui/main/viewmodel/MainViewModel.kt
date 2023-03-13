@@ -2,6 +2,7 @@ package com.weatherfrombilly.app2.ui.main.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.weatherfrombilly.app2.data.model.WeekWeatherModel
 import com.weatherfrombilly.app2.data.repository.WeatherRepository
 import io.reactivex.disposables.CompositeDisposable
 import java.text.SimpleDateFormat

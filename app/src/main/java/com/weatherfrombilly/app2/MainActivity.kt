@@ -45,14 +45,9 @@ class MainActivity : AppCompatActivity() {
             } else {
                 VERTICAL
             }
-            //orientation = HORIZONTAL
         }
         binding.fragmentMainRv.adapter = adapter
         binding.fragmentMainRv.layoutManager = lm
-
-//        binding.swipeRefresh.setOnRefreshListener {
-//            viewModel.onRefresh()
-//        }
     }
 
     private fun renderState(state: UiState) {
@@ -60,12 +55,10 @@ class MainActivity : AppCompatActivity() {
             UiState.ERROR -> {
                 hideMain()
                 showError()
-                // binding.swipeRefresh.isRefreshing = false
                 hide(binding.activityMainProgress)
             }
             UiState.LOADED -> {
                 showMain()
-                //binding.swipeRefresh.isRefreshing = false
                 hide(binding.activityMainProgress)
             }
             UiState.LOADING -> {

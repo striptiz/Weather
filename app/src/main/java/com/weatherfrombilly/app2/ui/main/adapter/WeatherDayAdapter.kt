@@ -27,7 +27,7 @@ class WeatherDayAdapter : RecyclerView.Adapter<WeatherDayAdapter.WeatherDayViewH
         fun bind(wDay: WeekWeatherModel) {
             temperature.text = "${wDay.temperature}°"
             desc.text = wDay.desc
-            icon.setImageResource(iconAdapter.getIcon(wDay.iconId))
+            icon.setImageResource(iconAdapter.getIcon(wDay.icon.id))
             day.text = getNamedDay(wDay.date)
             val format = SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH)
             date.text = format.format(wDay.date)
