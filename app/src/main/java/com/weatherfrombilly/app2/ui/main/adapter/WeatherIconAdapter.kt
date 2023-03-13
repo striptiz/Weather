@@ -16,7 +16,9 @@ class WeatherIconAdapter {
         HURRICANE("hurricane", R.drawable.ic_weather_hurricane),
     }
 
-    fun getIcon(iconId: String): Int {
-        return Icon.values().find { it.iconId == iconId }?.id ?: Icon.CLOUD.id
+    companion object {
+        fun getIcon(iconId: String): Int {
+            return Icon.values().find { it.iconId == iconId }?.id ?: Icon.CLOUD.id
+        }
     }
 }

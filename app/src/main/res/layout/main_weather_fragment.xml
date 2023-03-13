@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="model"
+            type="com.weatherfrombilly.app2.ui.main.view.main.MainFragmentVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/cityName"
+            style="@style/Text.CityName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@{model.cityName}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="India" />
+
+        <TextView
+            android:id="@+id/date"
+            style="@style/Text.Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@{model.date}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cityName"
+            tools:text="30.02.2023 13:00" />
+
+        <ImageView
+            android:id="@+id/weatherIcon"
+            android:layout_width="256dp"
+            android:layout_height="256dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date"
+            tools:src="@drawable/ic_weather_rain" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/topSection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="weatherIcon, date, cityName, desc" />
+
+        <TextView
+            android:id="@+id/temp"
+            style="@style/Text.Temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:text="@{model.temp}"
+            app:drawableLeftCompat="@drawable/ic_weather_icon_temperature"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/verticalGuideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/topSection"
+            tools:text="28°" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/verticalGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/humidity"
+            style="@style/Text.AddinitionalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@{model.humidity}"
+            app:drawableLeftCompat="@drawable/ic_weather_rain_drop"
+            app:layout_constraintBottom_toTopOf="@id/wind"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/verticalGuideline"
+            app:layout_constraintTop_toBottomOf="@id/topSection"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="80%" />
+
+        <TextView
+            android:id="@+id/wind"
+            style="@style/Text.AddinitionalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@{model.wind}"
+            app:drawableLeftCompat="@drawable/ic_weather_wind"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/verticalGuideline"
+            app:layout_constraintTop_toBottomOf="@id/humidity"
+            tools:text="44.5 m/s" />
+
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@{model.desc}"
+            style="@style/Text.Desc"
+            tools:text="Ясно"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weatherIcon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

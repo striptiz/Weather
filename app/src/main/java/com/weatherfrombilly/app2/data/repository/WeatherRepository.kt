@@ -1,31 +1,22 @@
 package com.weatherfrombilly.app2.data.repository
 
-import com.weatherfrombilly.app2.data.api.GismeteoApi
-import com.weatherfrombilly.app2.data.mapper.WeatherMapper
-import com.weatherfrombilly.app2.data.model.WeatherModel
-import com.weatherfrombilly.app2.data.model.WeekWeatherModel
+import com.weatherfrombilly.app2.data.source.GismeteoSourceData
+import com.weatherfrombilly.app2.ui.main.model.LocationModel
+import com.weatherfrombilly.app2.ui.main.model.WeatherModel
+import com.weatherfrombilly.app2.ui.main.model.WeekWeatherModel
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
-class WeatherRepository(val mapper: WeatherMapper = WeatherMapper()) {
-    private val gisApi by lazy {
-        val retrofit = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .baseUrl("https://api.nopbreak.ru/")
-            .build()
-
-        retrofit.create(GismeteoApi::class.java)
+class WeatherRepository(private val gisSource: GismeteoSourceData) {
+    fun getWeather(cityId: Int): Single<WeatherModel> {
+        return gisSource.getWeather(cityId).delay(2, TimeUnit.SECONDS)
     }
 
-    fun getWeather(): Single<WeatherModel> {
-        return gisApi.getCurrentWeather(11878).subscribeOn(Schedulers.io()).map(mapper::map)
+    fun getWeekWeather(cityId: Int): Single<List<WeekWeatherModel>> {
+        return gisSource.getWeekWeather(cityId)
     }
 
-    fun getWeekWeather(): Single<List<WeekWeatherModel>> {
-        return gisApi.getWeekWeather(11878).subscribeOn(Schedulers.io()).map(mapper::map)
+    fun getLocation(city: String): Single<List<LocationModel>> {
+        return gisSource.getLocation(city)
     }
 }

@@ -1,4 +1,4 @@
-package com.weatherfrombilly.app2.data.model
+package com.weatherfrombilly.app2.ui.main.model
 
 import java.util.Date
 

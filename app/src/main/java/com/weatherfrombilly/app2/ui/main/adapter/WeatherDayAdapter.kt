@@ -2,49 +2,45 @@ package com.weatherfrombilly.app2.ui.main.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.weatherfrombilly.app2.R
-import com.weatherfrombilly.app2.data.model.WeekWeatherModel
+import com.weatherfrombilly.app2.databinding.ViewHolderDayBinding
+import com.weatherfrombilly.app2.ui.main.model.WeekWeatherModel
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
 
 class WeatherDayAdapter : RecyclerView.Adapter<WeatherDayAdapter.WeatherDayViewHolder>() {
     private val days = mutableListOf<WeekWeatherModel>()
-    private val iconAdapter = WeatherIconAdapter()
 
-    inner class WeatherDayViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val icon = view.findViewById<ImageView>(R.id.view_holder_day__icon)
-        private val day = view.findViewById<TextView>(R.id.view_holder_day__day)
-        private val temperature = view.findViewById<TextView>(R.id.view_holder_day__temperature)
-        private val desc = view.findViewById<TextView>(R.id.view_holder_day__desc)
-        private val date = view.findViewById<TextView>(R.id.view_holder_day__date)
+    inner class WeatherDayViewHolder(private val binding: ViewHolderDayBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(wDay: WeekWeatherModel) {
-            temperature.text = "${wDay.temperature}°"
-            desc.text = wDay.desc
-            icon.setImageResource(iconAdapter.getIcon(wDay.icon.id))
-            day.text = getNamedDay(wDay.date)
+            binding.temp.text = itemView.resources.getString(R.string.temp_format, wDay.temperature)
+            binding.desc.text = wDay.desc
+            binding.weatherIcon.setImageResource(WeatherIconAdapter.getIcon(wDay.icon.id))
+            binding.day.text = getNamedDay(wDay.date)
             val format = SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH)
-            date.text = format.format(wDay.date)
-            //icon.setImageResource(wDay.icon.id)
+            binding.date.text = format.format(wDay.date)
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(l: List<WeekWeatherModel>) {
+        days.clear()
         days.addAll(l)
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherDayViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.view_holder_day, null, false)
-        return WeatherDayViewHolder(view)
+        val itemBinding = ViewHolderDayBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return WeatherDayViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: WeatherDayViewHolder, position: Int) {
@@ -56,10 +52,13 @@ class WeatherDayAdapter : RecyclerView.Adapter<WeatherDayAdapter.WeatherDayViewH
         return days.size
     }
 
-    fun getNamedDay(date: Date): String {
-        val cal: Calendar = Calendar.getInstance()
-        cal.time = date
-        val dayOfWeek: Int = cal.get(Calendar.DAY_OF_WEEK)
-        return DateFormatSymbols().shortWeekdays[dayOfWeek]
+    companion object {
+        private fun getNamedDay(date: Date): String {
+            val cal: Calendar = Calendar.getInstance().apply {
+                time = date
+            }
+            val dayOfWeek: Int = cal.get(Calendar.DAY_OF_WEEK)
+            return DateFormatSymbols().shortWeekdays[dayOfWeek]
+        }
     }
 }

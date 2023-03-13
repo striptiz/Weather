@@ -1,4 +1,4 @@
-package com.weatherfrombilly.app2.data.model.gis
+package com.weatherfrombilly.app2.data.model.gis.current
 
 data class CurrentWeatherData(
     val cityName: String,
