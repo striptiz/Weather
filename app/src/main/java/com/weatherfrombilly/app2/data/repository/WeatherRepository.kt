@@ -1,9 +1,9 @@
 package com.weatherfrombilly.app2.data.repository
 
 import com.weatherfrombilly.app2.data.source.GismeteoSourceData
-import com.weatherfrombilly.app2.ui.main.model.LocationModel
-import com.weatherfrombilly.app2.ui.main.model.WeatherModel
-import com.weatherfrombilly.app2.ui.main.model.WeekWeatherModel
+import com.weatherfrombilly.app2.ui.model.LocationModel
+import com.weatherfrombilly.app2.ui.model.WeatherModel
+import com.weatherfrombilly.app2.ui.model.WeekWeatherModel
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
 

@@ -2,9 +2,9 @@ package com.weatherfrombilly.app2.data.source
 
 import com.weatherfrombilly.app2.data.api.GismeteoApi
 import com.weatherfrombilly.app2.data.mapper.WeatherMapper
-import com.weatherfrombilly.app2.ui.main.model.LocationModel
-import com.weatherfrombilly.app2.ui.main.model.WeatherModel
-import com.weatherfrombilly.app2.ui.main.model.WeekWeatherModel
+import com.weatherfrombilly.app2.ui.model.LocationModel
+import com.weatherfrombilly.app2.ui.model.WeatherModel
+import com.weatherfrombilly.app2.ui.model.WeekWeatherModel
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit

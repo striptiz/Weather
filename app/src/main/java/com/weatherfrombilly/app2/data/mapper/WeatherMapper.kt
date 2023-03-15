@@ -1,12 +1,12 @@
 package com.weatherfrombilly.app2.data.mapper
 
-import com.weatherfrombilly.app2.provider.IconResolver
 import com.weatherfrombilly.app2.data.model.gis.current.CurrentWeatherResponse
 import com.weatherfrombilly.app2.data.model.gis.location.CurrentLocationResponse
 import com.weatherfrombilly.app2.data.model.gis.week.CurrentWeatherWeekResponse
-import com.weatherfrombilly.app2.ui.main.model.LocationModel
-import com.weatherfrombilly.app2.ui.main.model.WeatherModel
-import com.weatherfrombilly.app2.ui.main.model.WeekWeatherModel
+import com.weatherfrombilly.app2.provider.IconResolver
+import com.weatherfrombilly.app2.ui.model.LocationModel
+import com.weatherfrombilly.app2.ui.model.WeatherModel
+import com.weatherfrombilly.app2.ui.model.WeekWeatherModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,7 +19,9 @@ class WeatherMapper(private val iconResolver: IconResolver = IconResolver()) {
             humidity = data.data.humidity,
             desc = data.data.desc,
             date = Date(), // FIXME: current date
-            iconModel = iconResolver.getIconModel(data.data.desc)
+            iconModel = iconResolver.getIconModel(data.data.desc),
+            temperature_max = data.data.temperature_max,
+            temperature_min = data.data.temperature_min
         )
     }
 
@@ -29,7 +31,9 @@ class WeatherMapper(private val iconResolver: IconResolver = IconResolver()) {
                 date = parse(it.date) ?: Date(),
                 temperature = it.temperature,
                 desc = it.desc,
-                icon = iconResolver.getIconModel(it.desc)
+                icon = iconResolver.getIconModel(it.desc),
+                windSpeed = it.windSpeed,
+                humidity = it.humidity
             )
         }
     }

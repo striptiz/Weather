@@ -1,7 +1,7 @@
 package com.weatherfrombilly.app2.provider
 
-import com.weatherfrombilly.app2.ui.main.adapter.WeatherIconAdapter
-import com.weatherfrombilly.app2.ui.main.model.IconModel
+import com.weatherfrombilly.app2.ui.adapter.WeatherIconAdapter
+import com.weatherfrombilly.app2.ui.model.IconModel
 
 class IconResolver {
     fun getIconModel(desc: String): IconModel {
