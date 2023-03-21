@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <ListPreference
-        android:title="Температура"
-        android:summary=""
-        android:key="temp_format"
         android:defaultValue="c"
         android:entries="@array/temp_format"
-        android:entryValues="@array/temp_format_values" />
+        android:entryValues="@array/temp_format_values"
+        android:key="temperature_format"
+        android:summary=""
+        android:title="Температура"
+        app:summary="%s" />
 </PreferenceScreen>

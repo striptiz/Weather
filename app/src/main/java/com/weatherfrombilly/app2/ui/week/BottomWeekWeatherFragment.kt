@@ -8,10 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.weatherfrombilly.app2.databinding.FragmentBottomWeekWeatherBinding
 import com.weatherfrombilly.app2.activity.MainViewModel
-import com.weatherfrombilly.app2.ui.adapter.WeatherDayAdapter
 import com.weatherfrombilly.app2.activity.MainViewModelFactory
+import com.weatherfrombilly.app2.data.repository.PreferencesRepository
+import com.weatherfrombilly.app2.data.source.PreferencesSourceData
+import com.weatherfrombilly.app2.databinding.FragmentBottomWeekWeatherBinding
+import com.weatherfrombilly.app2.ui.adapter.WeatherDayAdapter
 import com.weatherfrombilly.app2.ui.model.MainUiState
 import com.weatherfrombilly.app2.ui.model.WeekWeatherModel
 import com.weatherfrombilly.app2.util.UI.isLandscapeOrientation
@@ -27,7 +29,7 @@ class BottomWeekWeatherFragment : Fragment() {
 
     private val mainVm: MainViewModel by viewModels(
         ownerProducer = { requireActivity() },
-        factoryProducer = { MainViewModelFactory }
+        factoryProducer = { MainViewModelFactory(requireContext()) }
     )
 
     override fun onCreateView(
@@ -36,11 +38,11 @@ class BottomWeekWeatherFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBottomWeekWeatherBinding.inflate(inflater, container, false)
-        _adapter = WeatherDayAdapter(object : WeatherDayAdapter.ClickListener{
+        _adapter = WeatherDayAdapter(object : WeatherDayAdapter.ClickListener {
             override fun onWeatherClicked(wDay: WeekWeatherModel) {
                 mainVm.onWeatherClicked(wDay)
             }
-        })
+        }, PreferencesRepository(PreferencesSourceData(requireContext())))
 
         binding.fragmentMainRv.adapter = adapter
         binding.fragmentMainRv.layoutManager = LinearLayoutManager(requireContext()).apply {

@@ -23,7 +23,7 @@ class FragmentHome : Fragment() {
 
     private val mainVm: MainViewModel by viewModels(
         ownerProducer = { requireActivity() },
-        factoryProducer = { MainViewModelFactory }
+        factoryProducer = { MainViewModelFactory(requireContext()) }
     )
 
     override fun onCreateView(

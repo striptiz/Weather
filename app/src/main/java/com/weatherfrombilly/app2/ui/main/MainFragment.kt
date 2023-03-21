@@ -20,7 +20,7 @@ class MainFragment : Fragment() {
     private val vm: MainFragmentVM by viewModels()
     private val mainVm: MainViewModel by viewModels(
         ownerProducer = { requireActivity() },
-        factoryProducer = { MainViewModelFactory }
+        factoryProducer = { MainViewModelFactory(requireContext()) }
     )
 
     override fun onCreateView(
@@ -41,6 +41,9 @@ class MainFragment : Fragment() {
         }
         vm.icon.observe(viewLifecycleOwner) {
             binding.weatherIcon.setImageResource(it)
+        }
+        vm.current_temp_icon.observe(viewLifecycleOwner) { id ->
+            binding.tempIcon.setImageResource(id)
         }
     }
 

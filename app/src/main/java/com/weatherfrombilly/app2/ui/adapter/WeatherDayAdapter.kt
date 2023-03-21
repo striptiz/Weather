@@ -5,14 +5,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.weatherfrombilly.app2.R
+import com.weatherfrombilly.app2.data.repository.PreferencesRepository
 import com.weatherfrombilly.app2.databinding.ViewHolderDayBinding
 import com.weatherfrombilly.app2.ui.model.WeekWeatherModel
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class WeatherDayAdapter(
-    private val listener: ClickListener
+    private val listener: ClickListener,
+    private val repository: PreferencesRepository
 ) : RecyclerView.Adapter<WeatherDayAdapter.WeatherDayViewHolder>() {
     private val days = mutableListOf<WeekWeatherModel>()
 
@@ -33,13 +36,18 @@ class WeatherDayAdapter(
         }
 
         fun bind(wDay: WeekWeatherModel) {
-            binding.temp.text = itemView.resources.getString(R.string.temp_format, wDay.temperature)
+            var temp = wDay.temperature
+
+            if (!repository.getTemperatureFormat()) {
+                temp = toF(temp)
+            }
+
+            binding.temp.text = itemView.resources.getString(R.string.temp_format, temp)
             binding.desc.text = wDay.desc
             binding.weatherIcon.setImageResource(WeatherIconAdapter.getIcon(wDay.icon.id))
             binding.day.text = getNamedDay(wDay.date)
             val format = SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH)
             binding.date.text = format.format(wDay.date)
-
         }
     }
 
@@ -76,5 +84,9 @@ class WeatherDayAdapter(
             val dayOfWeek: Int = cal.get(Calendar.DAY_OF_WEEK)
             return DateFormatSymbols().shortWeekdays[dayOfWeek]
         }
+    }
+
+    fun toF(temp: Int): Int {
+        return (9 / 5f * temp).roundToInt() + 32
     }
 }

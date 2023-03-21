@@ -33,7 +33,9 @@ class WeatherMapper(private val iconResolver: IconResolver = IconResolver()) {
                 desc = it.desc,
                 icon = iconResolver.getIconModel(it.desc),
                 windSpeed = it.windSpeed,
-                humidity = it.humidity
+                humidity = it.humidity,
+                tempMax = it.temperature_max,
+                tempMin = it.temperature_min
             )
         }
     }

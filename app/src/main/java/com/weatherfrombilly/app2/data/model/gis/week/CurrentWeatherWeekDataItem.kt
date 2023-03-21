@@ -5,5 +5,7 @@ data class CurrentWeatherWeekDataItem(
     val temperature: Int,
     val windSpeed: Int,
     val humidity: Int,
-    val desc: String
+    val desc: String,
+    val temperature_min: Int,
+    val temperature_max: Int
 )

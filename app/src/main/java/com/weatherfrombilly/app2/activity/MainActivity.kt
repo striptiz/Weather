@@ -13,7 +13,7 @@ import com.weatherfrombilly.app2.R
 import com.weatherfrombilly.app2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private val vm: MainViewModel by viewModels { MainViewModelFactory }
+    private val vm: MainViewModel by viewModels { MainViewModelFactory(this) }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -32,6 +32,9 @@ class MainActivity : AppCompatActivity() {
         )
         navView.setupWithNavController(navController)
         observeUiChanges()
+        vm.cityId.observe(this) {
+            vm.onCityChanged(it)
+        }
     }
 
     private fun observeUiChanges() {

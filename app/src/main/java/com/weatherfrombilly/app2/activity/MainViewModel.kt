@@ -24,17 +24,23 @@ class MainViewModel(
     val state: LiveData<MainUiState>
         get() = _state
 
+    private val _cityId = MutableLiveData<Int>()
+    val cityId: LiveData<Int>
+        get() = _cityId
+
     private fun fetchData() {
         disposables.add(
             repo.getWeather(prefRepo.getCurrentCityId())
-                .zipWith(repo.getWeekWeather(11878)) { current, week ->
+                .zipWith(repo.getWeekWeather(prefRepo.getCurrentCityId())) { current, week ->
                     MainUiState.LOADED(
                         currentWeatherData = current,
                         weekWeatherData = week.filter { // FIXME: move logic to domain
                             val calendar = Calendar.getInstance()
                             calendar.time = it.date
 
-                            calendar.get(Calendar.HOUR_OF_DAY) == 15
+                            val t = calendar.get(Calendar.HOUR_OF_DAY)
+
+                            t > 12 && t < 18
                         })
                 }.subscribe({ state ->
                     _state.postValue(state)
@@ -55,6 +61,15 @@ class MainViewModel(
     }
 
     private fun tryLoadData() {
+        _state.postValue(MainUiState.LOADING)
+        fetchData()
+    }
+
+    fun changeCity(cityId: Int) {
+        _cityId.postValue(cityId)
+    }
+
+    fun onCityChanged(cityId: Int) {
         _state.postValue(MainUiState.LOADING)
         fetchData()
     }
@@ -84,6 +99,8 @@ private fun WeekWeatherModel.toWeatherData(currentWeatherData: WeatherModel): We
         desc = desc,
         iconModel = icon,
         humidity = humidity,
-        windSpeed = windSpeed.toFloat()
+        windSpeed = windSpeed.toFloat(),
+        temperature_min = tempMin,
+        temperature_max = tempMax
     )
 }

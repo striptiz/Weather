@@ -8,5 +8,7 @@ data class WeekWeatherModel(
     val icon: IconModel,
     val desc: String,
     val windSpeed: Int,
-    val humidity: Int
+    val humidity: Int,
+    val tempMin: Int,
+    val tempMax: Int
 )

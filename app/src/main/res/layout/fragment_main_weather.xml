@@ -62,12 +62,12 @@
             android:id="@+id/temp_icon"
             style="@style/Icon.Temp"
             android:layout_marginEnd="12dp"
-            android:src="@drawable/ic_temperature_icon_c"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/temp"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@id/verticalGuideline2"
-            app:layout_constraintTop_toBottomOf="@id/topSection" />
+            app:layout_constraintTop_toBottomOf="@id/topSection"
+            tools:src="@drawable/ic_temperature_icon_c" />
 
         <ImageView
             android:id="@+id/image_wind"
@@ -159,12 +159,12 @@
         <ImageView
             android:id="@+id/imageView"
             style="@style/Icon.Temp"
+            android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toTopOf="@+id/imageView2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topSection"
             app:layout_constraintVertical_chainStyle="packed"
-            app:srcCompat="@drawable/ic_temperature_max"
-            android:layout_marginBottom="24dp"/>
+            app:srcCompat="@drawable/ic_temperature_max" />
 
         <ImageView
             android:id="@+id/imageView2"
