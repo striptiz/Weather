@@ -50,7 +50,7 @@ class MainFragment : Fragment() {
     private fun renderState(it: MainUiState) {
         if (it is MainUiState.LOADED) {
             vm.updateData(it.currentWeatherData)
-            Toast.makeText(requireContext(), "Updated!", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "Updated!", Toast.LENGTH_SHORT).show()
         }
     }
 

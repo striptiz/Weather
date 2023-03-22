@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.weatherfrombilly.app2.activity.MainViewModel
 import com.weatherfrombilly.app2.activity.MainViewModelFactory
@@ -75,5 +76,6 @@ class SearchFragment() : Fragment(), CitiesAdapter.ClickListener {
         Toast.makeText(requireContext(), "Clicked: $model", Toast.LENGTH_SHORT).show()
         vm.onCityClicked(model)
         mainVm.onCityChanged(model.cityId)
+        findNavController().popBackStack()
     }
 }

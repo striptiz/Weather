@@ -58,6 +58,6 @@ class SearchFragmentVM(
     }
 
     companion object {
-        private const val DEBOUNCE_TIMEOUT = 500L
+        private const val DEBOUNCE_TIMEOUT = 250L
     }
 }

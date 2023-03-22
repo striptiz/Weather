@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 
 class WeatherRepository(private val gisSource: GismeteoSourceData) {
     fun getWeather(cityId: Int): Single<WeatherModel> {
-        return gisSource.getWeather(cityId).delay(2, TimeUnit.SECONDS)
+        return gisSource.getWeather(cityId)
     }
 
     fun getWeekWeather(cityId: Int): Single<List<WeekWeatherModel>> {

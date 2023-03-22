@@ -1,6 +1,7 @@
 package com.weatherfrombilly.app2.activity
 
 import android.os.Bundle
+import android.view.Gravity
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -28,21 +29,17 @@ class MainActivity : AppCompatActivity() {
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.nav_home, R.id.nav_settings, R.id.nav_search), drawerLayout
+            setOf(R.id.nav_home, R.id.nav_settings, R.id.nav_search, R.id.nav_about), drawerLayout
         )
         navView.setupWithNavController(navController)
-        observeUiChanges()
         vm.cityId.observe(this) {
             vm.onCityChanged(it)
         }
-    }
-
-    private fun observeUiChanges() {
-
-    }
-
-    override fun onResume() {
-        super.onResume()
+        vm.event.observe(this) {
+            if (it == ActionEvent.SHOW_SETTINGS) {
+                binding.drawerLayout.openDrawer(Gravity.LEFT)
+            }
+        }
         vm.maybeUpdateData()
     }
 

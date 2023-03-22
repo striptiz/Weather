@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.weatherfrombilly.app2.R
@@ -13,6 +14,7 @@ import com.weatherfrombilly.app2.activity.MainViewModelFactory
 import com.weatherfrombilly.app2.ui.model.MainUiState
 import com.weatherfrombilly.app2.ui.main.MainFragment
 import com.weatherfrombilly.app2.ui.week.BottomWeekWeatherFragment
+import com.weatherfrombilly.app2.util.UI
 import com.weatherfrombilly.app2.util.UI.hide
 import com.weatherfrombilly.app2.util.UI.show
 
@@ -47,10 +49,25 @@ class FragmentHome : Fragment() {
             }
         }
 
+        binding.updateAction.setOnClickListener {
+            mainVm.updateData()
+        }
+
+        binding.menuAction.setOnClickListener {
+            mainVm.showSettings()
+        }
+        mainVm.state.observe(viewLifecycleOwner) {
+            if (it is MainUiState.LOADED) {
+                show(binding.updateAction, binding.menuAction)
+            } else {
+                hide(binding.updateAction, binding.menuAction)
+            }
+        }
+
         childFragmentManager.beginTransaction().add(R.id.main_weather_container, MainFragment())
             .commit();
         childFragmentManager.beginTransaction()
-            .add(R.id.week_weather_container, BottomWeekWeatherFragment()).commit();
+            .add(R.id.week_weather_container, BottomWeekWeatherFragment()).commit()
     }
 
     fun showContent() {

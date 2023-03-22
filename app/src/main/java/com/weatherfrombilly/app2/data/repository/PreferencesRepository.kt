@@ -14,4 +14,8 @@ class PreferencesRepository(private val prefSource: PreferencesSourceData) {
     fun getTemperatureFormat(): Boolean {
         return prefSource.getString("temperature_format", "c") == "c"
     }
+
+    fun getRequestTimeout(): Int {
+        return prefSource.getInt("request_timeout", 2000)
+    }
 }

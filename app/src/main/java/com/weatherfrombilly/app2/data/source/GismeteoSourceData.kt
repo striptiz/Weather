@@ -31,6 +31,6 @@ class GismeteoSourceData(val mapper: WeatherMapper) {
     }
 
     fun getLocation(city: String): Single<List<LocationModel>> {
-        return gisApi.getLocation(city).subscribeOn(Schedulers.io()).map(mapper::map)
+        return gisApi.getLocation(city).subscribeOn(Schedulers.io()).map(mapper::map).retry(3)
     }
 }

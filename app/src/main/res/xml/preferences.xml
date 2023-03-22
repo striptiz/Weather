@@ -9,4 +9,10 @@
         android:summary=""
         android:title="Температура"
         app:summary="%s" />
+    <SeekBarPreference
+        android:key="request_timeout"
+        android:max="10000"
+        android:summary="Request timeout"
+        app:defaultValue="2000"
+        app:min="100" />
 </PreferenceScreen>

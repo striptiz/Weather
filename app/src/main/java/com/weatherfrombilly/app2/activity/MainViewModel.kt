@@ -10,6 +10,7 @@ import com.weatherfrombilly.app2.ui.model.WeatherModel
 import com.weatherfrombilly.app2.ui.model.WeekWeatherModel
 import io.reactivex.disposables.CompositeDisposable
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MainViewModel(
     private val repo: WeatherRepository,
@@ -28,9 +29,14 @@ class MainViewModel(
     val cityId: LiveData<Int>
         get() = _cityId
 
+    private val _event = MutableLiveData<ActionEvent>()
+    val event: LiveData<ActionEvent>
+        get() = _event
+
     private fun fetchData() {
         disposables.add(
             repo.getWeather(prefRepo.getCurrentCityId())
+                .delay(prefRepo.getRequestTimeout().toLong(), TimeUnit.MILLISECONDS)
                 .zipWith(repo.getWeekWeather(prefRepo.getCurrentCityId())) { current, week ->
                     MainUiState.LOADED(
                         currentWeatherData = current,
@@ -60,21 +66,17 @@ class MainViewModel(
         }
     }
 
+    fun updateData() {
+        tryLoadData()
+    }
+
     private fun tryLoadData() {
         _state.postValue(MainUiState.LOADING)
         fetchData()
     }
 
-    fun changeCity(cityId: Int) {
-        _cityId.postValue(cityId)
-    }
-
     fun onCityChanged(cityId: Int) {
         _state.postValue(MainUiState.LOADING)
-        fetchData()
-    }
-
-    fun startRefresh() {
         fetchData()
     }
 
@@ -89,6 +91,10 @@ class MainViewModel(
                 )
             }
         }
+    }
+
+    fun showSettings() {
+        _event.postValue(ActionEvent.SHOW_SETTINGS)
     }
 }
 

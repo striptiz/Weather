@@ -22,4 +22,9 @@
         android:name="com.weatherfrombilly.app2.ui.search.SearchFragment"
         android:label="Search city"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/nav_about"
+        tools:layout="@layout/fragment_about"
+        android:name="com.weatherfrombilly.app2.ui.about.AboutFragment"
+        android:label="AboutFragment" />
 </navigation>
