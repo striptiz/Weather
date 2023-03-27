@@ -4,19 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.weatherfrombilly.app2.R
-import com.weatherfrombilly.app2.databinding.FragmentHomeBinding
 import com.weatherfrombilly.app2.activity.MainViewModel
 import com.weatherfrombilly.app2.activity.MainViewModelFactory
-import com.weatherfrombilly.app2.ui.model.MainUiState
+import com.weatherfrombilly.app2.databinding.FragmentHomeBinding
 import com.weatherfrombilly.app2.ui.main.MainFragment
+import com.weatherfrombilly.app2.ui.model.MainUiState
 import com.weatherfrombilly.app2.ui.week.BottomWeekWeatherFragment
-import com.weatherfrombilly.app2.util.UI
 import com.weatherfrombilly.app2.util.UI.hide
+import com.weatherfrombilly.app2.util.UI.hideActionBar
 import com.weatherfrombilly.app2.util.UI.show
+import com.weatherfrombilly.app2.util.UI.showActionBar
 
 class FragmentHome : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -70,25 +70,25 @@ class FragmentHome : Fragment() {
             .add(R.id.week_weather_container, BottomWeekWeatherFragment()).commit()
     }
 
-    fun showContent() {
+    private fun showContent() {
         binding.apply {
             show(mainWeatherContainer, weekWeatherContainer)
         }
     }
 
-    fun hideContent() {
+    private fun hideContent() {
         binding.apply {
             hide(mainWeatherContainer, weekWeatherContainer)
         }
     }
 
-    fun showProgress() {
+    private fun showProgress() {
         binding.apply {
             show(activityMainProgress)
         }
     }
 
-    fun hideProgress() {
+    private fun hideProgress() {
         binding.apply {
             hide(activityMainProgress)
         }
@@ -97,5 +97,15 @@ class FragmentHome : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().hideActionBar()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        requireActivity().showActionBar()
     }
 }
